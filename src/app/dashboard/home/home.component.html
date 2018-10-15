@@ -1,0 +1,150 @@
+<div class="featured aligner" id="running">
+    <h1>Execução</h1>
+    <label>escolha os parâmetros desejados e clico no botão "iniciar"</label>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h1 class="title">Parâmetros</h1>
+        <form #populateForm="ngForm" (ngSubmit)="onClick()">
+
+            <!-- Expected -->
+            <div class="form-group">
+                <label for="expected">Indivíduo desejado <span class="badge">obrigatório</span></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">abc</span>
+                    </div>
+                    <input type="text" class="form-control" id="expected" name="expected" placeholder="Ser, ou não ser. Eis a questão!" [(ngModel)]="model.expected" required>
+                </div>
+            </div>
+
+            <!-- Mutation rate -->
+            <div class="form-group">
+                <label for="mutation">Taxa de mutação</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">123</span>
+                    </div>
+                    <input type="number" class="form-control" id="mutation" name="mutation" placeholder="0.01" [(ngModel)]="model.mutation" step="0.01">
+                </div>
+            </div>
+
+            <!-- Population size -->
+            <div class="form-group">
+                <label for="size">Tamanho da população</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">123</span>
+                    </div>
+                    <input type="text" class="form-control" id="size" name="size" placeholder="200" [(ngModel)]="model.population">
+                </div>
+            </div>
+
+            <!-- Execution time (in ms) and Action button -->
+            <div class="form-group">
+                <label for="speed">Tempo das iterações (ms)</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">123</span>
+                    </div>
+                    <input type="number" class="form-control" id="speed" name="speed" placeholder="1000" [(ngModel)]="model.speed" #speed="ngModel">
+                    <div class="input-group-append">
+                        <button [disabled]="!populateForm.form.valid" class="btn btn-primary form-control">{{ running ? 'Parar' : 'Iniciar' }}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h1 class="title">Resultaods</h1>
+        
+        <!-- Best result -->
+        <div class="form-group">
+            <label for="best">Melhor resultado (tempo real)</label>
+            <input type="text" class="form-control" id="best" placeholder="Ser, ou não ser. Eis a questão!" name="expected" [(ngModel)]="result.best" disabled>
+        </div>
+
+        <!-- Generation & Fitness -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="generation">Geração atual</label>
+                    <input type="text" class="form-control" id="generation" placeholder="20" name="generation" [(ngModel)]="result.generation" disabled>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fitness">Fitness</label>
+                    <input type="text" class="form-control" id="fitness" placeholder="0.75" name="Fitness" [(ngModel)]="result.fitness" disabled>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result stack -->
+        <div class="form-group">
+            <label for="list">Pilha de resultados</label>
+            <select class="form-control" id="list" multiple disabled>
+                <option *ngFor="let individual of result.stack">{{ individual }}</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="featured aligner" id="about">
+    <h1>Sobre</h1>
+    <label>como funciona</label>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="chapter">
+            <h1 class="caption">Algoritmo</h1>
+            <label class="legend">Teorema dos macacos infinitos</label>
+            <p>O <a href="http://www.ietf.org/rfc/rfc2795.txt">Teorema dos macacos infinitos</a> descreve um conjunto de protocolos para que seja possível determinar quando uma infinidade de macacos, sentados em uma infinidade de máquinas de datilografar, seriam capazes de reproduzir os trabalhos completos de William Sheakspeare (ou um bom programa de televisão).</p>
+            <p>Para este exemplo, imagine que os macacos precisem datilografar apenas <span class="italic">"Ser ou não ser"</span>. Segundo o <a href="https://sausheong.github.io/posts/a-gentle-introduction-to-genetic-algorithms/">sausheong's space</a>, utilizando o termo em inglês "To be or not to be":</p>
+            <p class="quote">A citação tem 18 caracteres (incluindo espaços). A probabilidade do macaco digitar <span class="italic">"t"</span> (vamos ser generosos e dizer tudo bem para todas as letras pequenas) é de 1 em 26. Então a probabilidade de digitar a exata sequência "To be or not to be" é de 1 em 26 elevado a 18 ou 1 de aproximadamente 29.479.510.200.013.920.000.000.000. Vamos dizer que se um macaco digita uma letra a cada segundo, existe apenas 1 chance em 934.789.136.225.707.600 anos em que essa citação será digitada. Isso é, 1 vez em 934 trilhões de anos.</p>
+            <p>Ou seja, utilizar força bruta para resolver esse problema não parece ser a melhor abordagem. Por outro lado, utilizar o algoritmo genético parece ser uma escolha aceitável para desenvolver o problema e encontrar o resultado, não através de força bruta, mas através de seleção natural e mutação.</p>
+            <p>Para implementar o algoritmo genérico para este problema, basta seguir o algoritmo mais genérico para gerar a população de indivíduos, selecionar indivíduos, fazer o crossover, criar uma mutação entre os indivíduos, computar o fitness e repetir até uma quantidade determinada de gerações ou até que o algoritmo convirja (ou não).</p>
+            <p>Segue abaixo uma lista de links úteis para entender melhor e implementar o seu próprio algoritmo genérico: </p>
+            <ul>
+                <li>
+                    <label>[TEXTO]: <a href="https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3">Introduction to Genetic Algorithms</a></label>
+                </li>
+                <li>
+                    <label>[TEXTO]: <a href="https://sausheong.github.io/posts/a-gentle-introduction-to-genetic-algorithms/">A gentle introduction to genetic algorithms</a></label>
+                </li>
+                <li>
+                    <label>[VÍDEO]: <a href="https://www.youtube.com/watch?v=9zfeTw-uFCw&list=PLRqwX-V7Uu6bJM3VgzjNV5YxVxUwzALHV">The Nature of Code: Genetic Algorithm</a></label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter">
+            <h1 class="caption">Operadores genéticos</h1>
+            <label class="legend">Crossover e Mutação</label>
+            <p>Para que este problema fosse resolvido através do algoritmo genérico, fez-se necessário utilizar apenas o Crossover e Mutação. O Elitismo não foi necessário, mas isso não quer dizer que ele não deve ser implementado.</p>
+            <div class="row">
+
+                <!-- Crossover -->
+                <div class="col-md-6">
+                    <p class="subtitle">Crossover</p>
+                    <p>O <span class="italic">Crossover</span> consiste no cruzamento/reprodução dos indivíduos. Para criar novas gerações da população, é necessário cruzar os indivíduos da geração anterior de forma que os filhos herdem partes das características dos pais durante a reprodução. Para realizar o crossover, é necessário escolher dois indivíduos e fazer uma combinação, que pode ser uma escolha específica ou, como neste caso, uma escolha genérica onde o filho (indivíduo criado através do crossover) herda metade do "material genético" de um indivíduo e metade do outro.</p>
+                </div>
+
+                <!-- Mutation -->
+                <div class="col-md-6">
+                    <p class="subtitle">Mutação</p>
+                    <p>Apenas o crossover não é suficiente para garantir que o algoritmo conseguirá obter o melhor resultado. Então, após o Crossover é necessário que haja <span class="italic">Mutação</span>, pois é a mutação que permite a introdução e manutenção de diversidade genética. É aplicado a cada indivíduo após o crossover, e nada mais é do que uma modificação aleatória nos componentes da estrutura escolhida. A Mutação reduz a chance de ficar preso em <span class="italic">mínimos locais</span> e é necessário sempre considerar uma pequena taxa de mutação, para que o algoritmo não se torne <span class="italic">completamente aleatório</span>.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="subtitle">Elitismo</p>
+                    <p>O <span class="italic">Elitismo</span>, como o nome sugere, consiste em "segurar" um conjunto de indivíduos mais desenvolvidos e garantir que eles estarão presentes na próxima geração, evitando que os melhores indivíduos desapareçam da população.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
