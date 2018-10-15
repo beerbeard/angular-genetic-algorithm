@@ -9,21 +9,21 @@ import { GeneticService } from '../../services/genetic.service';
 })
 export class HomeComponent implements OnInit {
 
-	private model = {
+	public model = {
 		expected: undefined,
 		mutation: undefined,
 		population: undefined,
 		speed: undefined
 	}
 
-	private result = {
+	public result = {
 		best: undefined,
 		generation: undefined,
 		fitness: undefined,
 		stack: []
 	}
 
-	private running: boolean = false;
+	public running: boolean = false;
 
 	constructor(private geneticService: GeneticService) { }
 
